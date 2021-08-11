@@ -171,9 +171,9 @@ for a in range(414):
             else:
                 n1 = nodes[a]
                 n2 = nodes[b]
-                if(b>402):
+                if(b>401):
                     cp = n1.cppi[conversionchartcp[b-2][1]]
-                elif(b==402):
+                elif(b==401):
                     cp=n1.cppi[conversionchartcp[b-1][1]]
                 else:
                     cp=n1.cppi[conversionchartcp[b][1]]
@@ -188,12 +188,7 @@ for a in range(414):
             else:
                 n1 = nodes[a]
                 n2 = nodes[b]
-                if(b>402):
-                    cp = n1.cppi[conversionchartcp[b-2][1]]
-                elif(b==402):
-                    cp=n1.cppi[conversionchartcp[b-1][1]]
-                else:
-                    cp=n1.cppi[conversionchartcp[b][1]]
+                cp = n1.cppi[conversionchartcp[b-2][1]]
                 if(float(cp)>=thresholdcp):
                     currentmatrix.append(["c",cp])
                 else:
@@ -295,12 +290,6 @@ for a in range(414):
                     currentmatrix.append(["n","0"])
             
     adjacencymatrix.append(currentmatrix)
-print("do you want edges? (y/n)")
-wantedges=input()
-print("how many nodes do you want to display (max 414)")
-nodestodisplay=int(input())
-    
-    
 
 #initialize our root and tkinter
 
@@ -323,150 +312,62 @@ class Example(tk.Frame):
         
         seed(1)
 
-        #archived for now, but this method creates a database of all paths for all nodes
-        
-        #databaseofpaths = []
-        #for a in range(414):
-         #   print(a/414)
-          #  patharray=[]
-           # currentpath=[nodes[a]]
-            #patharray=self.recursive(0,a,currentpath,patharray,adjacencymatrix,nodes)
-            #databaseofpaths.append(patharray)
-
-        #self.printPaths(databaseofpaths)
-        
         #draw all circles by cycling through adjacency matrix and creating nodes in the order of their connection
         #randomize if no connection, otherwise, use our edge length formula to place the circle
         
         circles = []
         creatednode = []
         
-        for a in range(nodestodisplay):
+        for a in range(414):
             circles.append(0)
             
-        for a in range(nodestodisplay):
+        for a in range(414):
             n = nodes[a]
-            neighbors=self.getDrawnNeighbors(a,adjacencymatrix)
             if(creatednode.count(n)==0):
-                for b in range(a):
-                    n2=nodes[b]
-                    if(adjacencymatrix[a][b]!=None and adjacencymatrix[a][b][0]!="n" and creatednode.count(n2)==1):
-                        if(creatednode.count(n)==0):
-                            print(a, n.name, "created connected")
-                            circlecenterx=self.canvas.coords(circles[b])[0]+8
-                            circlecentery=self.canvas.coords(circles[b])[1]+8
-                            length = int(50-50*(float(adjacencymatrix[a][b][1])-thresholdrep)/(100-thresholdrep)+20)
-                            label = n.name
-                            deltax=randint(0,length)
-                            deltay = math.sqrt(length*length-deltax*deltax)
-                            randcorner = randint(1,4)
-                            if(randcorner==1):
-                                self.createNode(circlecenterx+deltax, circlecentery-deltay, 8, label, circles, a)
-                            elif(randcorner==2):
-                                self.createNode(circlecenterx-deltax, circlecentery-deltay, 8, label, circles, a)
-                            elif(randcorner==3):
-                                self.createNode(circlecenterx-deltax, circlecentery+deltay, 8, label, circles, a)
-                            else:
-                                self.createNode(circlecenterx+deltax, circlecentery+deltay, 8, label, circles, a)
-                            creatednode.append(n)
+                label = n.name
+                num=randint(8,1592)
+                num2=randint(8,892)
+                self.createNode(num, num2, 8, label, circles, a)
+                creatednode.append(n)
+            for b in range(414):
+                if(adjacencymatrix[a][b]!=None and adjacencymatrix[a][b][0]!="n"):
+                    n2 = nodes[b]
+                    if(creatednode.count(n2)==0):
+                        length = int(50-50*(float(adjacencymatrix[a][b][1])-thresholdrep)/(100-thresholdrep)+20)
+                        label2 = n2.name
+                        deltax=randint(0,length)
+                        deltay = math.sqrt(length*length-deltax*deltax)
+                        randcorner = randint(1,4)
+                        if(randcorner==1):
+                            self.createNode(num+deltax, num2-deltay, 8, label2, circles, b)
+                        elif(randcorner==2):
+                            self.createNode(num-deltax, num2-deltay, 8, label2, circles, b)
+                        elif(randcorner==3):
+                            self.createNode(num-deltax, num2+deltay, 8, label2, circles, b)
                         else:
-                            print("for", a, ":",b, "needs to cooperate with", neighbors[0])
-                            #triangle case
-                            if(adjacencymatrix[neighbors[0]][b]!=None and adjacencymatrix[neighbors[0]][b][0]!="n"):
-                                possiblepoints1=self.getPossiblePoints(circles, neighbors[0],a, adjacencymatrix)
-                                possiblepoints2=self.getPossiblePoints(circles, b,a, adjacencymatrix)
-                                closestpairs=self.optimizePoints(possiblepoints1,possiblepoints2)
-                                print(closestpairs[0],closestpairs[1])
-                                print(closestpairs[2], closestpairs[3])
-                                self.canvas.delete(circles[a])
-                                label=n.name
-                                newx=(closestpairs[0]+closestpairs[2])/2
-                                newy=(closestpairs[1]+closestpairs[3])/2
-                                self.createNode(newx, newy, 8, label, circles, a)
-                            #line case
-                            else:
-                                #v case, we will move one of the nodes!
-                                if(len(self.getDrawnNeighbors(neighbors[0],adjacencymatrix))==0 and len(self.getDrawnNeighbors(b, adjacencymatrix))==0):
-                                    print("made it in here!")
-                                    self.canvas.delete(circles[b])
-                                    circlecenterx=self.canvas.coords(circles[a])[0]+8
-                                    circlecentery=self.canvas.coords(circles[a])[1]+8
-                                    length = int(50-50*(float(adjacencymatrix[a][b][1])-thresholdrep)/(100-thresholdrep)+20)
-                                    label = n2.name
-                                    deltax=randint(0,length)
-                                    deltay = math.sqrt(length*length-deltax*deltax)
-                                    randcorner = randint(1,4)
-                                    if(randcorner==1):
-                                        self.createNode(circlecenterx+deltax, circlecentery-deltay, 8, label, circles, b)
-                                    elif(randcorner==2):
-                                        self.createNode(circlecenterx-deltax, circlecentery-deltay, 8, label, circles, b)
-                                    elif(randcorner==3):
-                                        self.createNode(circlecenterx-deltax, circlecentery+deltay, 8, label, circles, b)
-                                    else:
-                                        self.createNode(circlecenterx+deltax, circlecentery+deltay, 8, label, circles, b)
-                                else:
-                                    print("ok, looks like we have to move a whole cluster :(")
-                                    listofnodestomove=self.getConnections(b,a,[b])
-                                    print(n2.name, "is connected to", listofnodestomove)
-                                    circlecenterx=self.canvas.coords(circles[a])[0]+8
-                                    circlecentery=self.canvas.coords(circles[a])[1]+8
-                                    length = int(50-50*(float(adjacencymatrix[a][b][1])-thresholdrep)/(100-thresholdrep)+20)
-                                    label = n2.name
-                                    deltax=randint(0,length)
-                                    deltay = math.sqrt(length*length-deltax*deltax)
-                                    oldcenterx=self.canvas.coords(circles[b])[0]+8
-                                    oldcentery=self.canvas.coords(circles[b])[1]+8
-                                    if(circlecenterx-oldcenterx>0):
-                                        newx=circlecenterx-deltax
-                                        if(circlecentery-oldcentery>0):
-                                            newy=circlecentery-deltay
-                                        else:
-                                            newy=circlecentery+deltay
-                                    else:
-                                        newx=circlecenterx+deltax
-                                        if(circlecentery-oldcentery>0):
-                                            newy=circlecentery-deltay
-                                        else:
-                                            newy=circlecentery+deltay
-                                    print(a, "is", circlecenterx,circlecentery)
-                                    print(b, "is", oldcenterx, oldcentery)
-                                    print(b, "will be", newx,newy)
-                                    changex=newx-oldcenterx
-                                    changey=newy-oldcentery
-                                    for c in listofnodestomove:
-                                        oldcenterx=self.canvas.coords(circles[c])[0]+8
-                                        oldcentery=self.canvas.coords(circles[c])[1]+8
-                                        label = nodes[c].name
-                                        self.canvas.delete(circles[c])
-                                        self.createNode(oldcenterx+changex,oldcentery+changey, 8, label, circles, c) 
-                                    
-                print(a, "neighbors:", len(neighbors))            
-                if(creatednode.count(n)==0):
-                    print(a,n.name,"created randomly")
-                    label = n.name
-                    num=randint(8,1592)
-                    num2=randint(8,892)
-                    self.createNode(num, num2, 8, label, circles, a)
-                    creatednode.append(n)
+                            self.createNode(num+deltax, num2+deltay, 8, label2, circles, b)
+                        creatednode.append(n2)
 
+        
 
         #initialize edge array
         
         countl=0
         drewline=[]
 
-        for a in range(nodestodisplay):
+        for a in range(414):
             array=[]
-            for b in range(nodestodisplay):
+            for b in range(414):
                 array.append(False)
             drewline.append(array)
 
         #cycle through adjacency matrix and draw edges if needed also change color based on rcb
 
 
-        if(wantedges=="y"):
-            for a in range(nodestodisplay):
-                for b in range(nodestodisplay):
+        print("do you want edges? (y/n)")
+        if(input()=="y"):
+            for a in range(414):
+                for b in range(414):
                     if(adjacencymatrix[a][b]==None):
                         pass
                     elif(adjacencymatrix[a][b][0]=="n"):
@@ -485,6 +386,19 @@ class Example(tk.Frame):
             tags1=self.canvas.gettags(circle)
             self.canvas.create_oval(coords[0], coords[1], coords[2], coords[3],fill='green', width=0, tags=tags1)
 
+        #archived for now, but this method creates a database of all paths for all nodes
+        
+        databaseofpaths = []
+        #for a in range(414):
+          #  patharray=[]
+           # currentpath=[nodes[a]]
+         #   patharray=self.recursive(0,a,currentpath,patharray,adjacencymatrix,nodes)
+            #databaseofpaths.append(patharray)
+
+        #print(len(databaseofpaths))
+        #print(adjacencymatrix[1][413])
+        #print(adjacencymatrix[413][1])
+        #self.printPaths(databaseofpaths)
             
         #key bindings for mouse and keys
         # This is what enables using the mouse:
@@ -581,57 +495,6 @@ class Example(tk.Frame):
         top.geometry("500x100")
         tk.Message(top, text=tags_text, width=500).pack()
         top.after(5000,top.destroy)
-
-    def getPossiblePoints(self,circles, stationary, moving, adjacencymatrix):
-        hypotenuse = int(50-50*(float(adjacencymatrix[stationary][moving][1])-thresholdrep)/(100-thresholdrep)+20)
-        stationaryx=self.canvas.coords(circles[stationary])[0]+8
-        stationaryy=self.canvas.coords(circles[stationary])[1]+8
-        possiblepoints=[]
-        for a in range(120):
-            degrees = 3*a
-            radians=degrees*math.pi/180
-            deltax=math.cos(radians)*hypotenuse
-            deltay=math.sin(radians)*hypotenuse
-            coords=[]
-            coords.append(stationaryx+deltax)
-            coords.append(stationaryy+deltay)
-            possiblepoints.append(coords)
-        return possiblepoints
-
-    def optimizePoints(self, possiblepoints1, possiblepoints2):
-        diff = 1000000000000
-        coords=[]
-        for point1 in possiblepoints1:
-            for point2 in possiblepoints2:
-                tempdiff = math.fabs(point1[0]-point2[0])+math.fabs(point1[1]-point2[1])
-                if(tempdiff < diff):
-                    diff=tempdiff
-                    coords=[point1[0],point1[1],point2[0],point2[1]]
-        return coords
-
-    
-    def getConnections(self,a,current,listOfConnections):
-        neighbors=self.getCurrentNeighbors(a,current,adjacencymatrix)
-        for neighbor in neighbors:
-            if(listOfConnections.count(neighbor)==0):
-                listOfConnections.append(neighbor)
-                listofConnections=self.getConnections(neighbor,current, listOfConnections)
-        return listOfConnections
-    
-    def getDrawnNeighbors(self, a, adjacencymatrix):
-        neighbors=[]
-        for b in range(a):
-            if(adjacencymatrix[a][b]!=None and adjacencymatrix[a][b][0]!="n"):
-                neighbors.append(b)
-        return neighbors
-
-
-    def getCurrentNeighbors(self, a, current, adjacencymatrix):
-        neighbors=[]
-        for b in range(current):
-            if(adjacencymatrix[a][b]!=None and adjacencymatrix[a][b][0]!="n" and b!=a):
-                neighbors.append(b)
-        return neighbors
 
 if __name__ == "__main__":
     root = tk.Tk()
