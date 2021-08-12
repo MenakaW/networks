@@ -370,11 +370,14 @@ class Example(tk.Frame):
                                 self.createNode(circlecenterx+deltax, circlecentery+deltay, 8, label, circles, a)
                             creatednode.append(n)
                         else:
+                            print("for", a, ":",b, "needs to cooperate with", neighbors[0])
                             #triangle case
                             if(adjacencymatrix[neighbors[0]][b]!=None and adjacencymatrix[neighbors[0]][b][0]!="n"):
                                 possiblepoints1=self.getPossiblePoints(circles, neighbors[0],a, adjacencymatrix)
                                 possiblepoints2=self.getPossiblePoints(circles, b,a, adjacencymatrix)
                                 closestpairs=self.optimizePoints(possiblepoints1,possiblepoints2)
+                                print(closestpairs[0],closestpairs[1])
+                                print(closestpairs[2], closestpairs[3])
                                 self.canvas.delete(circles[a])
                                 label=n.name
                                 newx=(closestpairs[0]+closestpairs[2])/2
@@ -383,7 +386,8 @@ class Example(tk.Frame):
                             #line case
                             else:
                                 #v case, we will move one of the nodes!
-                                if(len(self.getCurrentNeighbors(neighbors[0],a,adjacencymatrix))==0 and len(self.getCurrentNeighbors(b,a, adjacencymatrix))==0):
+                                if(len(self.getDrawnNeighbors(neighbors[0],adjacencymatrix))==0 and len(self.getDrawnNeighbors(b, adjacencymatrix))==0):
+                                    print("made it in here!")
                                     self.canvas.delete(circles[b])
                                     circlecenterx=self.canvas.coords(circles[a])[0]+8
                                     circlecentery=self.canvas.coords(circles[a])[1]+8
@@ -401,7 +405,9 @@ class Example(tk.Frame):
                                     else:
                                         self.createNode(circlecenterx+deltax, circlecentery+deltay, 8, label, circles, b)
                                 else:
+                                    print("ok, looks like we have to move a whole cluster :(")
                                     listofnodestomove=self.getConnections(b,a,[b])
+                                    print(n2.name, "is connected to", listofnodestomove)
                                     circlecenterx=self.canvas.coords(circles[a])[0]+8
                                     circlecentery=self.canvas.coords(circles[a])[1]+8
                                     length = int(50-50*(float(adjacencymatrix[a][b][1])-thresholdrep)/(100-thresholdrep)+20)
@@ -422,6 +428,9 @@ class Example(tk.Frame):
                                             newy=circlecentery-deltay
                                         else:
                                             newy=circlecentery+deltay
+                                    print(a, "is", circlecenterx,circlecentery)
+                                    print(b, "is", oldcenterx, oldcentery)
+                                    print(b, "will be", newx,newy)
                                     changex=newx-oldcenterx
                                     changey=newy-oldcentery
                                     for c in listofnodestomove:
@@ -431,6 +440,7 @@ class Example(tk.Frame):
                                         self.canvas.delete(circles[c])
                                         self.createNode(oldcenterx+changex,oldcentery+changey, 8, label, circles, c) 
                                     
+                print(a, "neighbors:", len(neighbors))            
                 if(creatednode.count(n)==0):
                     print(a,n.name,"created randomly")
                     label = n.name
@@ -473,7 +483,7 @@ class Example(tk.Frame):
         for circle in circles:
             coords=self.canvas.coords(circle)
             tags1=self.canvas.gettags(circle)
-            self.canvas.create_oval(coords[0], coords[1], coords[2], coords[3],fill='green', width=1, tags=tags1)
+            self.canvas.create_oval(coords[0], coords[1], coords[2], coords[3],fill='green', width=0, tags=tags1)
 
             
         #key bindings for mouse and keys
@@ -540,7 +550,7 @@ class Example(tk.Frame):
     #draws a circle based on radius and center, gives a pre-set label
         
     def createNode(self, centerx, centery, radius,label, circles, index):
-        o = self.canvas.create_oval(centerx-radius, centery-radius, centerx+radius, centery+radius, fill = "green", width = 1, tags = label)
+        o = self.canvas.create_oval(centerx-radius, centery-radius, centerx+radius, centery+radius, fill = "green", width = 0, tags = label)
         circles[index]=o
 
     #given 2 circles, connect them with a line in the color given
