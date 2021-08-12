@@ -1,6 +1,10 @@
 # networks
 my genome networking code
 
-run updatedtest.py, and it should prompt you to enter a rep threshold and cp threshold from 0 to 100 (the rep protein is more varied than the cp protein, so it would be a good idea to reduce rep threshold to below the cp threshold, ie. rep: 30,cp: 40). if you type y for edges, the red lines represent only rep pi values between the two cruciviruses, the blue lines represent only cp pi values between the two cruciviruses, and if both rep and cp pi values are above the threshold, we draw a purple line  that represents an average of both! The final user input allows you to choose how many nodes you would like to see (for now, the code shows you the first x nodes, we are working on incorporating a range later)
+in terminal, run ./updatedtest.py (if you do not have python3, you might want to install that now!)
 
-Once you have the generated window, right click on nodes(circles) or edges(lines) to get additional data, click and drag to move the image around and scroll to zoom in or out! 
+the program will give you 2 prompts. first, it will ask you whether you want edges (lines between the nodes) or not. it will also ask you how many nodes out of 414 you would like to see. if you're unsure try (echo y; echo 414)|./updatedtest.py
+
+once you see the window pop up, use the sliders to adjust the rep and cp pi values (ie. rep: 30,cp: 40). there is also an option for length range - a lower range will create tighter clusters, while the higher range will create clusters that are more spread out. once the sliders are to your liking, hit the go button! if nothing seems to be happening, check the terminal, you will which node is being added.
+
+once you have the generated window, right click on nodes(circles) or edges(lines) to get additional data, click and drag to move the network around and scroll to zoom in or out! 
