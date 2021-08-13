@@ -1,5 +1,5 @@
 # networks
-my genome networking code
+hi my genome networking code
 
 in terminal, run ./updatedtest.py (if you do not have python3, you might want to install that now!)
 
