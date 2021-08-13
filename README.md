@@ -1,6 +1,6 @@
 # networks
 
-Unveiling CP/Reps Data
+-------------------Unveiling CP/Reps Data-------------------
 
 in terminal, run ./working.py 
 
@@ -17,7 +17,7 @@ once you see the window pop up, use the sliders to adjust the rep and cp pi valu
 once you have the generated window, right click on nodes(circles) or edges(lines) to get additional data, click and drag to move the network around and scroll to zoom in or out! 
 
 
-New CP/Reps Data
+------------------New CP/Reps Data------------
 
 in terminal, run ./updatedtest.py (if you do not have python3, you might want to install that now!)
 
