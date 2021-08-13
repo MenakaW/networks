@@ -1,5 +1,8 @@
 # networks
-hi my genome networking code
+
+Unveiling CP/Reps Data
+
+New CP/Reps Data
 
 in terminal, run ./updatedtest.py (if you do not have python3, you might want to install that now!)
 
