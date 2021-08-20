@@ -1,4 +1,8 @@
 #! /usr/bin/env python3
+"""
+Jyotsna Tera and Menaka Wijeratne
+August, 2021
+"""
 import tkinter as tk
 from random import seed
 from random import randint

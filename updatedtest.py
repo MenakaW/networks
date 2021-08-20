@@ -1,4 +1,8 @@
 #! /usr/bin/env python3
+"""
+Menaka Wijeratne and Jyotsna Tera
+August, 2021
+"""
 from collections import namedtuple
 import tkinter as tk
 from random import seed
