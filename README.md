@@ -14,7 +14,7 @@ chmod +x working.py
 
 then:
 
-(echo y; echo 462)|./updatedtest.py
+(echo y; echo 462)|./working.py
 
 once you see the window pop up, use the sliders to adjust the rep and cp pi values (ie. rep: 60,cp: 70). there is also an option for length range - a lower range will create tighter clusters, while the higher range will create clusters that are more spread out. once the sliders are to your liking, hit the go button! if nothing seems to be happening, check the terminal, you will which node is being added.
 
