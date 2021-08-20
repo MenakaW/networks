@@ -114,7 +114,7 @@ class Example(tk.Frame):
                             print(a, n.name, "created connected")
                             circlecenterx=self.canvas.coords(circles[b])[0]+8
                             circlecentery=self.canvas.coords(circles[b])[1]+8
-                            length = int(50-50*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
+                            length = int(lengthrange-lengthrange*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
                             label = n.name
                             deltax=randint(0,length)
                             deltay = math.sqrt(length*length-deltax*deltax)
@@ -148,7 +148,7 @@ class Example(tk.Frame):
                                     self.canvas.delete(circles[b])
                                     circlecenterx=self.canvas.coords(circles[a])[0]+8
                                     circlecentery=self.canvas.coords(circles[a])[1]+8
-                                    length = int(50-50*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
+                                    length = int(lengthrange-lengthrange*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
                                     label = n2.name
                                     deltax=randint(0,length)
                                     deltay = math.sqrt(length*length-deltax*deltax)
@@ -165,7 +165,7 @@ class Example(tk.Frame):
                                     listofnodestomove=self.getConnections(b,a,[b],amatrix)
                                     circlecenterx=self.canvas.coords(circles[a])[0]+8
                                     circlecentery=self.canvas.coords(circles[a])[1]+8
-                                    length = int(50-50*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
+                                    length = int(lengthrange-lengthrange*(float(amatrix[a][b][1])-tvaluereps)/(100-tvaluereps)+20)
                                     label = n2.name
                                     deltax=randint(0,length)
                                     deltay = math.sqrt(length*length-deltax*deltax)
