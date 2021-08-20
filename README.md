@@ -1,5 +1,9 @@
 # networks
 
+Prior to running, you might have to run this command:
+
+sudo apt-get install python3-tk
+
 -------------------Unveiling CP/Reps Data-------------------
 
 in terminal, run ./working.py 
