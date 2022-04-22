@@ -6,8 +6,8 @@ from random import randint
 import math
 
 #opening all files
-cruciCp = open(r"CruciCpPi", "r")
-cressCp = open(r"CressCpPi","r")
+cruciCp = open(r"CruciCpPi.txt", "r")
+cressCp = open(r"CressCpPi.txt","r")
 allRep = open(r"AllRepPi.txt","r")
 
 #opening all name files
