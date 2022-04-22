@@ -438,11 +438,11 @@ class Example(tk.Frame):
         #small subframe that carries all our sliders and the go button
         self.frame = tk.Frame(self)
         self.textrep=tk.Label(self.frame, text="rep \nthreshold")
-        self.sliderrep = tk.Scale(self.frame, from_=0, to=100,orient="vertical", length=200)
+        self.sliderrep = tk.Scale(self.frame, from_=0, to=100,orient="vertical", length=150)
         self.textcp=tk.Label(self.frame, text="cp \nthreshold")
-        self.slidercp = tk.Scale(self.frame, from_=0, to=100, orient="vertical", length=200)
+        self.slidercp = tk.Scale(self.frame, from_=0, to=100, orient="vertical", length=150)
         self.textlength=tk.Label(self.frame, text="edge length \nrange")
-        self.sliderlength = tk.Scale(self.frame, from_=20, to=200, orient="vertical", length=200)
+        self.sliderlength = tk.Scale(self.frame, from_=20, to=200, orient="vertical", length=150)
         self.buttongo=tk.Button(self.frame, text="go!", command=lambda : self.recreateGraph())
 
         #configure the canvas scrolling
